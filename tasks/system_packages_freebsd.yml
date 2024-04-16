@@ -1,5 +1,5 @@
 - name: Ensure FreeBSD conf directory exists
-  file:
+  ansible.builtin.file:
     path: /usr/local/etc/pkg/repos
     state: directory
   tags:

@@ -1,38 +1,38 @@
 ---
 # tasks file for bridge
 - name: Set OS specific variables
-  include_vars: "os_{{ ansible_os_family }}.yml"
+  ansible.builtin.include_vars: "os_{{ ansible_os_family }}.yml"
   tags:
     - always
 
 # System preparation
-- import_tasks: system_packages_debian.yml
+- ansible.builtin.import_tasks: system_packages_debian.yml
   when: ansible_os_family == 'Debian'
-- import_tasks: system_packages_rhel.yml
+- ansible.builtin.import_tasks: system_packages_rhel.yml
   when: ansible_os_family == 'RedHat'
-- import_tasks: system_packages_freebsd.yml
+- ansible.builtin.import_tasks: system_packages_freebsd.yml
   when: ansible_os_family == 'FreeBSD'
-- import_tasks: system_packages_openbsd.yml
+- ansible.builtin.import_tasks: system_packages_openbsd.yml
   when: ansible_os_family == 'OpenBSD'
 
 # Tor installation
-- import_tasks: tor_packages_debian.yml
+- ansible.builtin.import_tasks: tor_packages_debian.yml
   when: ansible_os_family == 'Debian'
-- import_tasks: tor_packages_rhel.yml
+- ansible.builtin.import_tasks: tor_packages_rhel.yml
   when: ansible_os_family == 'RedHat'
-- import_tasks: tor_packages_freebsd.yml
+- ansible.builtin.import_tasks: tor_packages_freebsd.yml
   when: ansible_os_family == 'FreeBSD'
-- import_tasks: tor_packages_openbsd.yml
+- ansible.builtin.import_tasks: tor_packages_openbsd.yml
   when: ansible_os_family == 'OpenBSD'
 
 # Tor config
-- import_tasks: tor_config.yml
+- ansible.builtin.import_tasks: tor_config.yml
 
 # Service
-- import_tasks: service_linux.yml
+- ansible.builtin.import_tasks: service_linux.yml
   when: ansible_os_family in ['Debian', 'RedHat']
-- import_tasks: service_freebsd.yml
+- ansible.builtin.import_tasks: service_freebsd.yml
   when: ansible_os_family == 'FreeBSD'
-- import_tasks: service_openbsd.yml
+- ansible.builtin.import_tasks: service_openbsd.yml
   when: ansible_os_family == 'OpenBSD'
-- import_tasks: bridge_line.yml
+- ansible.builtin.import_tasks: bridge_line.yml

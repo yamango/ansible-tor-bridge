@@ -1,6 +1,6 @@
 # Tor repo
 - name: Configuring Tor repository
-  template:
+  ansible.builtin.template:
     src: tor.list.j2
     dest: "/etc/apt/sources.list.d/tor.list"
     owner: "root"
@@ -23,13 +23,13 @@
     state: latest
   tags:
     - tor_packages
-    - install_all
 
 - name: Tor packages installation
   apt:
-    name: "{{ tor_packages }}"
     update_cache: yes
+    pkg: "{{ item }}"
     state: latest
+  loop: "{{ tor_packages }}"
   tags:
     - tor_packages
     - install_all

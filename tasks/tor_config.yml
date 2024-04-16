@@ -1,5 +1,5 @@
 - name: Configure Torrc file
-  template:
+  ansible.builtin.template:
     src: torrc.j2
     dest: "{{ torrc_path }}"
     owner: "root"
@@ -57,7 +57,7 @@
     - install_all
 
 - name: Override systemd configuration to use privileged ports
-  file:
+  ansible.builtin.file:
     state: directory
     path: "/etc/systemd/system/{{ item }}.d"
     recurse: yes
@@ -81,7 +81,7 @@
   tags:
     - tor_config
     - install_all
-    
+
 - name: Configure net.inet.ip.random_id
   ansible.posix.sysctl:
     name: net.inet.ip.random_id

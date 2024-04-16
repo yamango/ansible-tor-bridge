@@ -1,46 +1,47 @@
 - name: Get fingerprint
-  slurp: 
+  ansible.builtin.slurp:
     src: "{{ fingerprint_file }}"
   register: fingerprint_file_content
   tags:
     - bridge_line
 
-- name: Get cert 
-  slurp: 
+- name: Get cert
+  ansible.builtin.slurp:
     src: "{{ cert_file }}"
   register: cert_file_content
   tags:
     - bridge_line
 
 - name: Register fingerprint
-  set_fact:
+  ansible.builtin.set_fact:
     fingerprint: "{{ fingerprint_file_content.content | b64decode | regex_findall('[a-zA-Z0-9]+ ([A-Z0-9]+)') }}"
   tags:
     - bridge_line
 
 - name: Register cert
-  set_fact:
+  ansible.builtin.set_fact:
     cert: "{{ cert_file_content.content | b64decode | regex_findall('cert=(\\S+)') }}"
   tags:
     - bridge_line
 
 - name: Register result
-  set_fact:
+  ansible.builtin.set_fact:
     bridge_line: "Bridge obfs4 {{ public_ip }}:{{ obfs4_port }} {{ fingerprint[0] }} cert={{ cert[0] }} iat-mode=0"
   tags:
     - bridge_line
 
 - name: Delete file if present
-  file:
+  ansible.builtin.file:
     path: "{{ bridge_line_file }}"
     state: absent
   ignore_errors: yes
   delegate_to: localhost
+  become: no
   tags:
     - bridge_line
 
-- name: Create file 
-  file:
+- name: Create file
+  ansible.builtin.file:
     path: "{{ bridge_line_file }}"
     state: touch
   ignore_errors: yes

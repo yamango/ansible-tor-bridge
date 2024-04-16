@@ -85,7 +85,7 @@
     - install_all
 
 - name: Download git source (EL7)
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ git_source_url }}"
     dest: "{{ git_source_archive }}"
   when: ansible_distribution_major_version == "7"
@@ -95,7 +95,7 @@
     - git
 
 - name: Create git building dir (EL7)
-  file:
+  ansible.builtin.file:
     state: directory
     path: "{{ git_source_path }}"
     recurse: yes

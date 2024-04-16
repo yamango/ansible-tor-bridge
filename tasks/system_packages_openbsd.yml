@@ -1,5 +1,5 @@
 - name: Install M:Tier openup
-  get_url:
+  ansible.builtin.get_url:
     url: https://stable.mtier.org/openup
     dest: /usr/local/bin/openup
     mode: 0755
@@ -7,4 +7,4 @@
     - install_all
 
 - name: Run openup
-  shell: "/usr/local/bin/openup -N"
+  ansible.builtin.shell: "/usr/local/bin/openup -N"
