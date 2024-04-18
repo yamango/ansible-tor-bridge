@@ -17,7 +17,7 @@
     - install_all
 
 - name: Restart Tor service
-  service:
+  ansible.builtin.service:
     name: tor
     state: restarted
   tags:
@@ -25,20 +25,20 @@
     - install_all
 
 - name: Reload Tor service
-  service:
+  ansible.builtin.service:
     name: tor
     state: reloaded
   tags:
     - reload
 
 - name: Stop Tor service
-  service:
+  ansible.builtin.service:
     name: tor
     state: stopped
   tags:
     - stop
 
 - name: Start Tor service
-  service:
+  ansible.builtin.service:
     name: tor
     state: started

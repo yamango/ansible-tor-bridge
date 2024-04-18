@@ -1,5 +1,5 @@
 - name: Update system
-  apt:
+  ansible.builtin.apt:
     name: "*"
     update_cache: yes
     state: latest
@@ -9,7 +9,7 @@
     - install_all
 
 - name: Packages installation
-  apt:
+  ansible.builtin.apt:
     name: "{{ system_packages }}"
     update_cache: yes
     state: latest

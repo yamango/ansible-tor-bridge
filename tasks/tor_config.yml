@@ -10,7 +10,7 @@
     - install_all
 
 - name: Allow ports in SELinux
-  seport:
+  community.general.seport:
     ports:
       - "{{ tor_port }}"
       - "{{ obfs4_port }}"
@@ -37,7 +37,7 @@
     - install_all
 
 - name: Restarting FirewallD
-  systemd:
+  ansible.builtin.systemd_service:
     name: firewalld.service
     state: restarted
   ignore_errors: yes
@@ -47,7 +47,7 @@
     - install_all
 
 - name: Set cap_net_bind_service on obfs4
-  capabilities:
+  community.general.capabilities:
     path: /usr/bin/obfs4proxy
     capability: 'cap_net_bind_service=+ep'
     state: present
@@ -70,7 +70,7 @@
     - install_all
 
 - name: Override systemd configuration to use privileged ports
-  copy:
+  ansible.builtin.copy:
     src: systemd_override.conf
     dest: "/etc/systemd/system/{{ item }}.d/override.conf"
     mode: 0644
@@ -97,7 +97,7 @@
   when: ansible_os_family == 'OpenBSD'
 
 - name: Add configuration to login.conf
-  blockinfile:
+   ansible.builtin.blockinfile:
     path: /etc/login.conf
     block: |
       tor:\

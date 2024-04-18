@@ -21,7 +21,7 @@ galaxy_info:
         - 7
     - name: Fedora
       versions:
-        - 35 
+        - 35
     - name: FreeBSD
       versions:
         - 12.2

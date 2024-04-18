@@ -6,7 +6,7 @@
     - install_all
 
 - name: Configure FreeBSD to use HTTPS
-  copy:
+  ansible.builtin.copy:
     content: |
       FreeBSD: {
         url: pkg+https://pkg.freebsd.org/${ABI}/latest
@@ -16,7 +16,7 @@
     - install_all
 
 - name: Packages installation (FreeBSD)
-  pkgng:
+  community.general.pkgng:
     name: "{{ system_packages }}"
     state: latest
   tags:

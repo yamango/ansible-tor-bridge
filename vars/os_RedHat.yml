@@ -1,10 +1,10 @@
 ---
-system_packages_el8: 
+system_packages_el8:
   - git
   - golang
   - policycoreutils-python-utils
 
-system_packages_el7: 
+system_packages_el7:
   - golang
   - policycoreutils-python
   - curl-devel

@@ -1,5 +1,5 @@
 - name: Update system (EL8 / Fedora)
-  dnf:
+  ansible.builtin.dnf:
     name: "*"
     state: latest
   when: ansible_distribution == "Fedora" or ansible_distribution_major_version == "8"
@@ -9,7 +9,7 @@
     - install_all
 
 - name: Update system (EL7)
-  yum:
+  ansible.builtin.yum:
     name: "*"
     state: latest
   when: ansible_distribution_major_version == "7"
@@ -19,7 +19,7 @@
     - install_all
 
 - name: Enable PowerTools (Rocky8 / CentOS8)
-  ini_file:
+  community.general.ini_file:
     path: "/etc/yum.repos.d/{{ ansible_distribution }}-PowerTools.repo"
     section: powertools
     option: enabled
@@ -32,7 +32,7 @@
     - install_all
 
 - name: Enable PowerTools (RHEL8)
-  rhsm_repository:
+  community.general.rhsm_repository:
     name: "codeready-builder-for-rhel-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}-rpms"
     state: enabled
   when:
@@ -43,11 +43,11 @@
     - install_all
 
 - name: Installing EPEL repo (EL8)
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ epel_repo_url }}"
     state: "latest"
     disable_gpg_check: yes
-  when: 
+  when:
     - ansible_distribution in [ "CentOS", "Rocky", "RedHat" ]
     - ansible_distribution_major_version == "8"
   tags:
@@ -55,11 +55,11 @@
     - install_all
 
 - name: Installing EPEL repo (EL7)
-  yum:
+  ansible.builtin.yum:
     name: "{{ epel_repo_url }}"
     state: "latest"
     disable_gpg_check: yes
-  when: 
+  when:
     - ansible_distribution in [ "CentOS", "RedHat" ]
     - ansible_distribution_major_version == "7"
   tags:
@@ -67,7 +67,7 @@
     - install_all
 
 - name: Packages installation (EL8 / Fedora)
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ system_packages_el8 }}"
     state: latest
   when: ansible_distribution == "Fedora" or ansible_distribution_major_version == "8"
@@ -76,7 +76,7 @@
     - install_all
 
 - name: Packages installation (EL7)
-  yum:
+  ansible.builtin.yum:
     name: "{{ system_packages_el7 }}"
     state: latest
   when: ansible_distribution_major_version == "7"
@@ -117,7 +117,7 @@
     - git
 
 - name: Build git (EL7)
-  command: "make configure"
+  ansible.builtin.command: "make configure"
   args:
     chdir: "{{ git_source_full_path }}"
   when: ansible_distribution_major_version == "7"
@@ -126,7 +126,7 @@
     - git
 
 - name: Configure git (EL7)
-  command: "./configure --prefix=/usr --with-curl"
+  ansible.builtin.command: "./configure --prefix=/usr --with-curl"
   args:
     chdir: "{{ git_source_full_path }}"
   when: ansible_distribution_major_version == "7"
@@ -135,7 +135,7 @@
     - git
 
 - name: Compile git (EL7)
-  command: "make"
+  ansible.builtin.command: "make"
   args:
     chdir: "{{ git_source_full_path }}"
   when: ansible_distribution_major_version == "7"
@@ -144,7 +144,7 @@
     - git
 
 - name: Install git (EL7)
-  command: "make install"
+  ansible.builtin.command: "make install"
   args:
     chdir: "{{ git_source_full_path }}"
   when: ansible_distribution_major_version == "7"

@@ -1,5 +1,5 @@
 - name: Restart Tor service
-  systemd:
+  ansible.builtin.systemd_service:
     name: tor
     daemon-reload: yes
     state: restarted
@@ -8,7 +8,7 @@
     - install_all
 
 - name: Reload Tor service
-  systemd:
+  ansible.builtin.systemd_service:
     name: tor
     daemon-reload: yes
     state: reloaded
@@ -16,7 +16,7 @@
     - reload
 
 - name: Stop Tor service
-  systemd:
+  ansible.builtin.systemd_service:
     name: tor
     daemon-reload: yes
     state: stopped
@@ -24,7 +24,7 @@
     - stop
 
 - name: Enabling Tor daemon service
-  systemd:
+  ansible.builtin.systemd_service:
     name: "tor@default"
     daemon-reload: yes
     enabled: yes
@@ -33,7 +33,7 @@
     - install_all
 
 - name: Launching Tor service
-  systemd:
+  ansible.builtin.systemd_service:
     name: tor
     daemon-reload: yes
     state: started

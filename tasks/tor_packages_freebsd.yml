@@ -1,5 +1,5 @@
 - name: Install Tor packages
-  pkgng:
+  community.general.pkgng:
     name: "{{ tor_packages }}"
     state: latest
   tags:

@@ -11,7 +11,7 @@
     - install_all
 
 - name: Tor packages installation (EL8 / Fedora)
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ tor_packages }}"
     state: latest
   when: ansible_distribution == "Fedora" or ansible_distribution_major_version == "8"
@@ -20,7 +20,7 @@
     - install_all
 
 - name: Tor packages installation (EL7)
-  yum:
+  ansible.builtin.yum:
     name: "{{ tor_packages }}"
     state: latest
   when: ansible_distribution_major_version == "7"
@@ -38,7 +38,7 @@
     - install_all
 
 - name: Build OBFS4
-  command: "go get {{ obfs4_url }}"
+  ansible.builtin.command: "go get {{ obfs4_url }}"
   environment:
     GOPATH: "{{ obfs4_build_dir }}"
   tags:
@@ -46,7 +46,7 @@
     - install_all
 
 - name: Move OBFS4 binary
-  copy:
+  ansible.builtin.copy:
     src: "{{ obfs4_build_dir }}/bin/obfs4proxy"
     dest: "{{ obfs4_path }}"
     mode: "0755"
